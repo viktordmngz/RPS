@@ -1,0 +1,22 @@
+######## READ ME ########
+
+Written by: Viktor Dominguez
+Date Started: 07/03/2022
+
+Feel free to use the code as you see fit, though I doubt you
+will want to.
+
+############################
+
+This will be my first attempt at making a simple python game.
+
+My game of choice will be Rock, Paper, Scissors.
+
+There will be a function to keep track of the user's record, a function
+for the computer's choice, and a prompt for a user's input.
+
+The input should be either the first letter, or the word of choice.
+
+This is just for practice, there aren't any real applications for this code
+outside of just something to have fun with.
+
