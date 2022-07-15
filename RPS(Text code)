@@ -1,19 +1,27 @@
-import random
+import random, re
 
-name = input("Please enter your name: ")
+name = input("Please enter your first name: ")
+#make sure the name only contains letters
+while re.match(r"[^A-Za-z]", name):
+		name = input("Please enter a valid first name: ")
 
-while re.search(r"[0-9]", name):
-	name = input("Please enter a valid name: ")
+#score limit input
+limit = input("\nWhat do you want to play to: ")
+#make sure the score limit only takes numbers
+while re.search(r"\D", limit):
+	limit = input("\nPlease enter a valid number: ")
 
+#initialize the record variables
 wins = 0
 losses = 0
 
 #can comment this out if you don't care about ties
 #if you don't track ties, be sure to comment out in code below
 ties = 0
+
 total = [wins, losses, ties]
 
-
+#human choice for the game
 def human():
 	""""
 	Want to take an input and make sure it is either rock, paper, or scissors.
@@ -47,13 +55,11 @@ def human():
 	Rock(R), Paper(P), or Scissors(S): POPPER
 	(valid, paper is chosen)
 	"""
-
 	choice = input("\nPlease select\nRock(R), Paper(P), or Scissors(S):  ")
 	letters = ['r','p','s']
-
+	#run a choice until the word/letter typed starts with r, p, or s
 	while choice[0].lower() not in letters:
 		choice = input("\nPlease make a valid choice\nRock(R), Paper(P), or Scissors(S):  ")
-	
 	return choice[0].lower()
 
 
@@ -70,9 +76,13 @@ def computer():
 
 	>>> computer()
 	None
-	"""
 
-	choice = int(random.random()*3)
+	since random will return a number from 0 to just less than 1, multiplying
+	by 3 will return a number from 0 to just less than 3.
+	we can just get the leading int by passing through int()
+	"""
+	choice = random.randint(0,2)
+	#if the 
 	if choice == 0:
 		return 'r'
 	elif choice == 1:
@@ -81,7 +91,7 @@ def computer():
 		return 's'
 
 
-def game(total):
+def game(total, name):
 	"""
 	total is a list with wins, losses, and ties respectively.
 	Ties may be commented out above but the code below must also be adjusted.
@@ -96,61 +106,62 @@ def game(total):
 	a = human()
 	b = computer()
 	print("Computer chose {}\n".format(b))
-  
+	#if a = b, we have a tie and need to exit
 	if a == b:
 		total[2] += 1
 		print("*"*12)
-		print("\nYou TIED\n")
-		print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
+		print("\nYou TIED...this is awkward...\n")
+		print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
 		print("*"*12)
 		return total
-
-	if b == 's':
-		if a == 'p':
-			total[1] += 1
-			print("*"*12)
-			print("\nYou LOST. Better luck next time.\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
-			print("*"*12)
-			return total
-		else:
+	elif a == 'r':
+	#Check winning condition if A is rock
+		if b == 's':
 			total[0] += 1
 			print("*"*12)
-			print("\nYou WON! Congrats!\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
-			print("*"*12)
-			return total
-
-  if a != 's' :
-		list = [a,b]
-		list = list.sort()
-		if list[0] == a:
-			total[0] += 1
-			print("*"*12)
-			print("\nYou WON! Congrats!\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
+			print("\nCongrats, {}! You WON!\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
 			print("*"*12)
 			return total
 		else:
 			total[1] += 1
 			print("*"*12)
-			print("\nYou LOST. Better luck next time.\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
+			print("\nSorry, {}, you LOST....\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
 			print("*"*12)
 			return total
-
-  if a == 's':
+	elif a == 'p':
+	#Check winning condition if A is paper
+		if b == 'r':
+			total[0] += 1
+			print("*"*12)
+			print("\nCongrats, {}! You WON!\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
+			print("*"*12)
+			return total
+		else:
+			total[1] += 1
+			print("*"*12)
+			print("\nSorry, {}, you LOST....\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
+			print("*"*12)
+			return total
+	elif a == 's':
+	#Check winning condition if A is scissors
 		if b == 'p':
 			total[0] += 1
 			print("*"*12)
-			print("\nYou WON! Congrats!\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
+			print("\nCongrats, {}! You WON!\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
 			print("*"*12)
 			return total
-		elif b == 'r':
+		else:
 			total[1] += 1
 			print("*"*12)
-			print("\nYou LOST. Better luck next time.\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
+			print("\nSorry, {}, you LOST....\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
 			print("*"*12)
 			return total
+
+while (total[0] + total[1] != int(limit)):
+	game(total, name)
