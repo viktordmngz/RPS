@@ -1,4 +1,4 @@
-import random
+import random, re
 
 name = input("Please enter your name: ")
 
