@@ -88,7 +88,7 @@ def computer():
 		return 's'
 
 
-def game(total):
+def game(total, name):
 	"""
 	total is a list with wins, losses, and ties respectively.
 	Ties may be commented out above but the code below must also be adjusted.
@@ -107,57 +107,57 @@ def game(total):
 	if a == b:
 		total[2] += 1
 		print("*"*12)
-		print("\nYou TIED\n")
-		print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
+		print("\nYou TIED...this is awkward...\n")
+		print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
 		print("*"*12)
 		return total
-	#if b = s, alphabetical won't work
-	if b == 's':
-		if a == 'p':
-			total[1] += 1
-			print("*"*12)
-			print("\nYou LOST. Better luck next time.\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
-			print("*"*12)
-			return total
-		else:
+	elif a == 'r':
+	#Check winning condition if A is rock
+		if b == 's':
 			total[0] += 1
 			print("*"*12)
-			print("\nYou WON! Congrats!\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
-			print("*"*12)
-			return total
- 	#a is either paper or rock and b is either paper or rock
-	if a != 's' :
-		list = [a,b]
-		list = list.sort()
-		if list[0] == a:
-			total[0] += 1
-			print("*"*12)
-			print("\nYou WON! Congrats!\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
+			print("\nCongrats, {}! You WON!\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
 			print("*"*12)
 			return total
 		else:
 			total[1] += 1
 			print("*"*12)
-			print("\nYou LOST. Better luck next time.\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
+			print("\nSorry, {}, you LOST....\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
 			print("*"*12)
 			return total
-	#if a is s, alphabetical won't work
-	if a == 's':
+	elif a == 'p':
+	#Check winning condition if A is paper
+		if b == 'r':
+			total[0] += 1
+			print("*"*12)
+			print("\nCongrats, {}! You WON!\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
+			print("*"*12)
+			return total
+		else:
+			total[1] += 1
+			print("*"*12)
+			print("\nSorry, {}, you LOST....\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
+			print("*"*12)
+			return total
+	elif a == 's':
+	#Check winning condition if A is scissors
 		if b == 'p':
 			total[0] += 1
 			print("*"*12)
-			print("\nYou WON! Congrats!\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
+			print("\nCongrats, {}! You WON!\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
 			print("*"*12)
 			return total
-		elif b == 'r':
+		else:
 			total[1] += 1
 			print("*"*12)
-			print("\nYou LOST. Better luck next time.\n")
-			print("{} wins, {} losses, {} ties\n".format(str(total[0]), str(total[1]), str(total[2])))
+			print("\nSorry, {}, you LOST....\n".format(name))
+			print("{}'s record: {} wins, {} losses, {} ties\n".format(name, str(total[0]), str(total[1]), str(total[2])))
 			print("*"*12)
 			return total
+
+#to play, call game(total, name)
