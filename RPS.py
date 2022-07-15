@@ -1,10 +1,15 @@
 import random, re
 
-name = input("Please enter your name: ")
-
+name = input("Please enter your first name: ")
 #make sure the name only contains letters
-while re.search(r"[0-9]", name):
-	name = input("Please enter a valid name: ")
+while re.match(r"[^A-Za-z]", name):
+		name = input("Please enter a valid first name: ")
+
+#score limit input
+limit = input("\nWhat do you want to play to: ")
+#make sure the score limit only takes numbers
+while re.search(r"\D", limit):
+	limit = input("\nPlease enter a valid number: ")
 
 #initialize the record variables
 wins = 0
@@ -50,13 +55,11 @@ def human():
 	Rock(R), Paper(P), or Scissors(S): POPPER
 	(valid, paper is chosen)
 	"""
-
 	choice = input("\nPlease select\nRock(R), Paper(P), or Scissors(S):  ")
 	letters = ['r','p','s']
-
+	#run a choice until the word/letter typed starts with r, p, or s
 	while choice[0].lower() not in letters:
 		choice = input("\nPlease make a valid choice\nRock(R), Paper(P), or Scissors(S):  ")
-	
 	return choice[0].lower()
 
 
@@ -73,13 +76,13 @@ def computer():
 
 	>>> computer()
 	None
+
+	since random will return a number from 0 to just less than 1, multiplying
+	by 3 will return a number from 0 to just less than 3.
+	we can just get the leading int by passing through int()
 	"""
-
-	# since random will return a number from 0 to just less than 1, multiplying
-	# by 3 will return a number from 0 to just less than 3.
-	# we can just get the leading int by passing through int()
-	choice = int(random.random()*3)
-
+	choice = random.randint(0,2)
+	#if the 
 	if choice == 0:
 		return 'r'
 	elif choice == 1:
@@ -160,4 +163,5 @@ def game(total, name):
 			print("*"*12)
 			return total
 
-#to play, call game(total, name)
+while (total[0] + total[1] != int(limit)):
+	game(total, name)
